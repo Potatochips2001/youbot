@@ -8,8 +8,10 @@ auth = {
 
 ids = []
 
+channelId = input("Channel ID: ")
+
 while True:
-    getLastMessageJson = requests.get("https://discord.com/api/v8/channels/{channel.id}/messages?limit=1", headers=auth)
+    getLastMessageJson = requests.get(f"https://discord.com/api/v8/channels/{channelId}/messages?limit=1", headers=auth)
     lastMessage = json.loads(getLastMessageJson.text)
     lastMessage = lastMessage[0]['content']
     lastMessageId = json.loads(getLastMessageJson.text)
@@ -29,7 +31,8 @@ while True:
                 payload = {
                     "content": messageContent
                 }
-                sendPacket = requests.post("https://discord.com/api/v8/channels/{channel.id}/messages", data=payload, headers=auth)
+                sendPacket = requests.post(f"https://discord.com/api/v8/channels/{channelId}/messages", data=payload, headers=auth)
+                print(messageContent)
             except Exception as e:
                 print(e)
     time.sleep(0.25)
